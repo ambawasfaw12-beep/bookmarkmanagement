@@ -1,5 +1,5 @@
 import { getHomePage, getStyle, getJSFile } from "./Fserving.js"
-import { readlinks,saveLink } from "./getdata.js"
+import { readlinks, saveLink } from "./getdata.js"
 
 export async function apiHandlerFun(req, res) {
 
@@ -42,9 +42,27 @@ export async function apiHandlerFun(req, res) {
   }
 
   else if (pathname === '/api/bookmarks' && method === 'GET') {
+    try {
+      const sites = await readlinks()
+      res.writeHead(200, { 'content-type': 'application/json' })
+      res.end(JSON.stringify({ success: true, sites }))
+    } catch (err) {
+      res.writeHead(500, { 'content-type': 'application/json' })
+      res.end(JSON.stringify({ success: false, sites: [] }))
+    }
+  }
+
+  else if (pathname === '/api/bookmarks' && method === 'POST') {
 
   }
 
+  else if (pathname === '/api/bookmarks' && method === 'PUT') {
+
+  }
+
+  else if (pathname === '/api/bookmarks' && method === 'DELETE') {
+
+  }
   else {
     res.writeHead(404, { 'content-type': 'text/html' })
     res.end(`<h2>Page not found</h2>`)
