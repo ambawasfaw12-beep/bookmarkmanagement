@@ -18,8 +18,16 @@ async function fetchSite() {
           <p>${element.site}</p>
           <a href="${element.url}" target="_blank">${element.url}</a>
         </div>
-        <button class="delete-btn" onclick="deleteSiteHandler(${element.id})">Delete</button>
-        `
+        <div class="btn-box">
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+        </div>
+         `
+         const editBtn = siteDiv.querySelector('.edit-btn')
+         editBtn.addEventListener('click', ()=>editSiteHandler(element.id))
+
+        const deleteBtn = siteDiv.querySelector('.delete-btn')
+        deleteBtn.addEventListener('click', () => deleteSiteHandler(element.id))
         container.appendChild(siteDiv)
     });
 }
@@ -51,3 +59,17 @@ async function addsite() {
 }
 
 addBtn.addEventListener('click', addsite)
+
+async function deleteSiteHandler(id) {
+
+const response = await fetch(`/api/bookmarks?id=${id}`,{
+       method: 'DELETE'
+})
+
+if(response.ok){
+    fetchSite()
+}else{
+    alert('Failed to delete bookmark')
+}
+    
+} 

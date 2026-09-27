@@ -22,3 +22,13 @@ export async function saveLink(name, link) {
     await fs.writeFile(filePath, JSON.stringify(sites, null, 2), 'utf-8')
     return newLink
 }
+
+export async function deletesite(id) {
+    const sites = await readlinks()
+    const updatedSite = sites.filter(site =>{
+      return  site.id !== id
+    })
+    
+    await fs.writeFile(filePath, JSON.stringify(updatedSite, null, 2), 'utf-8')
+    return sites.length !== updatedSite.length
+}
