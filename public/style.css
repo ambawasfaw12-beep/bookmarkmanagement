@@ -31,7 +31,7 @@ h1 {
 .inputBox {
     display: flex;
     flex-direction: column;
-    height: 400px; 
+    height: 400px;
     align-items: center;
     justify-content: center;
     gap: 1.5rem;
@@ -76,34 +76,75 @@ input::placeholder {
     border-radius: 10px;
     background: var(--inputbackground);
     overflow: auto;
+    padding: 0.5rem;
 }
 
-.inputBox, .container {
-    width: 90%;          
-    max-width: 600px;    
+.inputBox,
+.container {
+    width: 90%;
+    max-width: 600px;
 }
 
-@media (max-width: 600px){
-    :root{
+.site-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #fffaf0;
+}
+
+.site-card p{
+    font-weight: bold;
+}
+
+.site-card a{
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+   text-decoration: none;
+}
+
+.delete-btn{
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1.3rem;
+    background: #e53935;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.delete-btn:hover{
+    background: #c62828;
+}
+
+@media (max-width: 600px) {
+    :root {
         --font-size: 1.1rem
     }
 
-    body{
+    body {
         gap: 1.5rem;
-        padding:  1rem 0;
+        padding: 1rem 0;
     }
-    .inputBox{
+
+    .inputBox {
         height: auto;
         padding: 1.5rem 1rem;
     }
-    .box{
+
+    .box {
         display: flex;
         width: 100%;
         align-items: center;
         gap: 0.5rem;
     }
 
-    input{
+    input {
         width: 80%;
         max-width: 100%;
     }

@@ -11,11 +11,13 @@ async function fetchSite() {
     container.innerHTML = ''
     sites.forEach(element => {
         const siteDiv = document.createElement('div')
-        siteDiv.className = 'note-card'
+        siteDiv.className = 'site-card'
 
         siteDiv.innerHTML = `
-        <p>${element.site}</p>
-        <a href="${element.url}" target="_blank">${element.url}</a>
+        <div>
+          <p>${element.site}</p>
+          <a href="${element.url}" target="_blank">${element.url}</a>
+        </div>
         <button class="delete-btn" onclick="deleteSiteHandler(${element.id})">Delete</button>
         `
         container.appendChild(siteDiv)
