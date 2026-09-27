@@ -52,9 +52,28 @@ export async function apiHandlerFun(req, res) {
     }
   }
 
-  else if (pathname === '/api/bookmarks' && method === 'POST') {
+else if (pathname === '/api/bookmarks' && method === 'POST') {
+  let body = ''
 
-  }
+  req.on('data', chunk => {
+    body += chunk.toString()
+  })
+
+  req.on('end', async () => {
+    try {
+      const parsedData = JSON.parse(body)
+      
+      // Pass the extracted title/site and link directly from parsedData
+      const savedData = await saveLink(parsedData.name, parsedData.address)
+
+      res.writeHead(201, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({ success: true, site: savedData }))
+    } catch (err) {
+      res.writeHead(400, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({ success: false, error: 'Invalid JSON or failed to save' }))
+    }
+  })
+}
 
   else if (pathname === '/api/bookmarks' && method === 'PUT') {
 
