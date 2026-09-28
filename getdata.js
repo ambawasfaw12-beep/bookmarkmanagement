@@ -25,10 +25,26 @@ export async function saveLink(name, link) {
 
 export async function deletesite(id) {
     const sites = await readlinks()
-    const updatedSite = sites.filter(site =>{
-      return  site.id !== id
+    const updatedSite = sites.filter(site => {
+        return site.id !== id
     })
-    
+
     await fs.writeFile(filePath, JSON.stringify(updatedSite, null, 2), 'utf-8')
     return sites.length !== updatedSite.length
+}
+
+export async function updatedContent(id, name, link) {
+
+    const sites = await readlinks()
+    const siteIndex = sites.findIndex(site => site.id === id)
+
+    if (siteIndex === -1) {
+        return null
+    }
+
+    sites[siteIndex].site = name
+    sites[siteIndex].url = link
+
+    await fs.writeFile(filePath, JSON.stringify(sites, null, 2), 'utf-8')
+    return  sites[siteIndex]
 }

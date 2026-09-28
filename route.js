@@ -1,6 +1,6 @@
 import { deleteNote } from "../nodebasics/notesModel.js"
 import { getHomePage, getStyle, getJSFile } from "./Fserving.js"
-import { readlinks, saveLink, deletesite } from "./getdata.js"
+import { readlinks, saveLink, deletesite, updatedContent } from "./getdata.js"
 
 export async function apiHandlerFun(req, res) {
 
@@ -78,6 +78,28 @@ export async function apiHandlerFun(req, res) {
   }
 
   else if (pathname === '/api/bookmarks' && method === 'PUT') {
+    const numericId = Number(stringId)
+    let body = ''
+    req.on('data', chunk => {
+      body += chunk.toString()
+    })
+
+    req.on('end', async () => {
+      try {
+        const parsedData = JSON.parse(body)
+        const updatedPage = await updatedContent(numericId, parsedData.name, parsedData.address)
+        if (updatedPage) {
+          res.writeHead(200, { 'Content-Type': 'application/json' })
+          res.end(JSON.stringify({ success: true, note: updatedPage }))
+        } else {
+          res.writeHead(404, { 'Content-Type': 'application/json' })
+          res.end(JSON.stringify({ error: 'Site not found' }))
+        }
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({ error: 'Invalid JSON format' }))
+      }
+    })
 
   }
 
