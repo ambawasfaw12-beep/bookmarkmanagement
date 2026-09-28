@@ -1,4 +1,3 @@
-import { deleteNote } from "../nodebasics/notesModel.js"
 import { getHomePage, getStyle, getJSFile } from "./Fserving.js"
 import { readlinks, saveLink, deletesite, updatedContent } from "./getdata.js"
 
